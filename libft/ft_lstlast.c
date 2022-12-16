@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_lstlast.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/02 15:36:10 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/13 19:01:39 by pkatsaro      ########   odam.nl         */
+/*   Created: 2022/11/01 17:36:06 by pkatsaro      #+#    #+#                 */
+/*   Updated: 2022/11/04 15:14:38 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "get_next_line.h"
-// #include "j12.j"
+#include "libft.h"
 
-int	main(void)
+/* lst: The beginning of the list.
+	Return v: Last node of the list , i will use: int	ft_lstsize(t_list *lst)
+*/
+
+t_list	*ft_lstlast(t_list *lst)
 {
-	int 	fd;
-	
-	fd = open("tests/test.txt", O_RDONLY);
-	//printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
-	if (close(fd) == -1)
+	t_list	*copy;
+
+	copy = lst;
+	while (copy)
 	{
-		printf("close() err");
-		return (-1);
+		if (!copy->next)
+			return (copy);
+		copy = copy->next;
 	}
-	return (0);
+	return (copy);
 }

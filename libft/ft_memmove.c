@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_memmove.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/02 15:36:10 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/13 19:01:39 by pkatsaro      ########   odam.nl         */
+/*   Created: 2022/10/13 15:42:47 by pkatsaro      #+#    #+#                 */
+/*   Updated: 2022/11/04 13:52:40 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "get_next_line.h"
-// #include "j12.j"
+#include "libft.h"
 
-int	main(void)
+// copy byte string
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int 	fd;
-	
-	fd = open("tests/test.txt", O_RDONLY);
-	//printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
-	if (close(fd) == -1)
+	if (!len || dst == src)
+		return (dst);
+	if (src > dst)
+		ft_memcpy(dst, src, len);
+	else
 	{
-		printf("close() err");
-		return (-1);
+		while (len > 0)
+		{
+			((char *)dst)[len - 1] = ((char *)src)[len - 1];
+			len--;
+		}
 	}
-	return (0);
+	return (dst);
 }

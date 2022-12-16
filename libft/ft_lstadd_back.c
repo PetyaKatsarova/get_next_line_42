@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_lstadd_back.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/02 15:36:10 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/13 19:01:39 by pkatsaro      ########   odam.nl         */
+/*   Created: 2022/11/01 18:27:03 by pkatsaro      #+#    #+#                 */
+/*   Updated: 2022/11/04 15:06:13 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "get_next_line.h"
-// #include "j12.j"
+#include "libft.h"
+/* lst: The address of a pointer to the first link of a list.
+   new: The address of a pointer to the node to be added to the list.
+	Descr: Adds the node ’new’ at the end of the list.
+*/
 
-int	main(void)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int 	fd;
-	
-	fd = open("tests/test.txt", O_RDONLY);
-	//printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
-	if (close(fd) == -1)
+	t_list	*last;
+
+	if (!new)
+		return ;
+	if (!(*lst))
 	{
-		printf("close() err");
-		return (-1);
+		*lst = new;
+		return ;
 	}
-	return (0);
+	last = ft_lstlast(*lst);
+	last->next = new;
 }

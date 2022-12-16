@@ -6,22 +6,67 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 13:21:44 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/06 12:45:24 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2022/12/16 18:40:20 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 // read, malloc, free, ret NULL if there is nth else to read
-#include <unistd.h> // to remove ??
-#include <stdio.h>
-
 //read() r nbytes of data from the obj of reference by the fildes into
 // the buffer pointed to by buf:re num of bites read adn place in the buf
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include "get_next_line.h"
+// #include "j12.j"
 
-char	*get_next_line(int	fd)
+char	*get_next_line(int fd)
 {
-	//do sth
+	static char		buf[BUFFER_SIZE + 1];
+	int				buf_len;
+	int				i;
+	int				j;
+	static char		*storage[BUFFER_SIZE + 1];
+	
+	buf_len = read(fd, buf, BUFFER_SIZE);
+	i = 0;
+	j = 0;
+	if (!buf_len)
+		return (NULL);
+	//printf("%s, %i\n", buf, buf_len);
+	while (buf[i] != '\0' && buf[i] != '\n')
+		i++;
+	while (i < buf_len && i != '\n')
+	{
+		storage[j] = &buf[i];
+		j++;
+		i++;
+	}
+	printf("%s bla\n", storage);
+	return (buf);  // add dif if end of file and + \n
 }
 
+int	main(void)
+{
+	int 	fp;
+	//int		ret;
+	
+	fp = open("tests/test.txt", O_RDONLY);
+	
+	printf("%s\n-----------------\n", get_next_line(fp));
+	printf("%s\n-----------------\n", get_next_line(fp));
+	printf("%s\n-----------------\n", get_next_line(fp));
+	
+	
+	if (close(fp) == -1) // checks
+	{
+		printf("close() err");
+		return (-1);
+	}
+	return (0);
+}
 /*
 Description Write a function that returns a line read from a
 file descriptor

@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_calloc.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/02 15:36:10 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/13 19:01:39 by pkatsaro      ########   odam.nl         */
+/*   Created: 2022/10/22 18:57:48 by pkatsaro      #+#    #+#                 */
+/*   Updated: 2022/11/30 16:56:35 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "get_next_line.h"
-// #include "j12.j"
+#include "libft.h"
 
-int	main(void)
+void	*ft_calloc(size_t count, size_t size)
 {
-	int 	fd;
-	
-	fd = open("tests/test.txt", O_RDONLY);
-	//printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
-	if (close(fd) == -1)
-	{
-		printf("close() err");
-		return (-1);
-	}
-	return (0);
+	void	*ptr;
+
+	ptr = (void *)malloc(count * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_memset(ptr, 0, size * count);
+	return (ptr);
 }

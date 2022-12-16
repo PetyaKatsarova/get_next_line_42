@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_strjoin.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/02 15:36:10 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/13 19:01:39 by pkatsaro      ########   odam.nl         */
+/*   Created: 2022/10/28 19:31:51 by pkatsaro      #+#    #+#                 */
+/*   Updated: 2022/11/01 16:35:37 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "get_next_line.h"
-// #include "j12.j"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int 	fd;
-	
-	fd = open("tests/test.txt", O_RDONLY);
-	//printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
-	if (close(fd) == -1)
+	int		i;
+	int		j;
+	char	*mystr;
+
+	i = 0;
+	j = 0;
+	mystr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!mystr)
+		return (NULL);
+	while (s1[i] != '\0')
 	{
-		printf("close() err");
-		return (-1);
+		mystr[i] = s1[i];
+		i++;
 	}
-	return (0);
+	while (s2[j] != '\0')
+	{
+		mystr[i + j] = s2[j];
+		j++;
+	}
+	mystr[i + j] = '\0';
+	return (mystr);
 }
