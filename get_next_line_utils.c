@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 15:33:50 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:32:46 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2022/12/17 15:38:11 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,63 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
-	char	*res;
-	size_t	len;
+	int		j;
+	char	*mystr;
 
-	len = ft_strlen(s1) + ft_strlen(s2);
-	res = malloc(sizeof(char) * (len + 1));
-	if (!res)
-		return (0);
 	i = 0;
-	while (*s1)
-		res[i++] = *s1++;
-	while (*s2)
-		res[i++] = *s2++;
-	res[i] = 0;
-	return (ret);
+	j = 0;
+	mystr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!mystr)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		mystr[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		mystr[i + j] = s2[j];
+		j++;
+	}
+	mystr[i + j] = '\0';
+	return (mystr);
 }
+
+// char	*ft_strdup(const char *s1)
+// {
+// 	char	*ptr;
+
+// 	ptr = (char *)malloc((ft_strlen(s1) + 1) * sizeof(char));
+// 	if (ptr == NULL)
+// 		return (NULL);
+// 	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
+// 	return (ptr);
+// }
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	src_len;
+
+	i = 0;
+	src_len = ft_strlen(src);
+	if (dstsize == 0)
+		return (src_len);
+	if (!dst || !src)
+		return (0);
+	while (i < (dstsize - 1) && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_len);
+}
+
+
+
+
+

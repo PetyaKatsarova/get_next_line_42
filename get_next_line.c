@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 13:21:44 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/17 13:11:53 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2022/12/17 17:00:02 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,43 @@
 #include <unistd.h>
 #include "get_next_line.h"
 // #include "j12.j"
+char	*ft_select(char *buf, int *ret);
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, char **line)
 {
-	static char		buf[BUFFER_SIZE + 1];
-	static char		curr_line[BUFFER_SIZE + 1];
-	int				buf_len, i, j;
-	
-	buf_len = read(fd, buf, BUFFER_SIZE + 1);
-	i = 0;
-	// j = 0;
-	if (!buf_len)
+	char		buf[BUFFER_SIZE + 1];
+	int			ret;
+	static char	*str = NULL;
+	char		*temp;
+
+	ret = BUFFER_SIZE;
+	if (fd < 0 || fd > 1023 || !line || BUFFER_SIZE <= 0)
 		return (NULL);
-	buf[BUFFER_SIZE + 1] = '\0';
-	// trancate till \n or end
-	while (buf[i] != '\0' && buf[i] != '\n' && BUFFER_SIZE > i)
+	while (ret > 0)
 	{
-		curr_line[i] = buf[i];
-		//printf("res: %c\n", curr_line[i]);
-		i++;
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret == -1)
+			retrun (NULL);
+		buf[ret] = 0;
+		temp = str;
+		str = ft_strjoin(temp, buf);
+		free(temp);
+		if (ft_strchr (str, '\n'))
+			break;
 	}
-	curr_line[i] = '\0';
-	//printf("%s\n", curr_line);
-	return (curr_line);  // add dif if end of file and + \n
+	// *line = ft_select(str, &ret);
+	// temp = str;
+	// //str = ft_select2(temp);
+	// free(temp);
+	// if (ret == 0 && (*str)[0] == 0)
+	// {
+	// 	free (*str);
+	// 	*str = NULL;
+	// }
+	// return (ret);
+	return (str);
 }
+
 
 int	main(void)
 {
@@ -66,6 +79,63 @@ int	main(void)
 	}
 	return (0);
 }
+
+char	*ft_select(char *buf, int *ret)
+{
+	int		i;
+	char	*dest;
+
+	i = 0;
+	while (buf && buf[i] && buf[i] != '\n')
+		i++;
+	dest = malloc (i + 1);
+	if (!dest)
+		return (NULL);
+	if (ft_strchr(buf, '\n' != 0))
+		*ret = 1;
+	i = 0;
+	while (buf && buf[i] && buf[i] != '\n')
+	{
+		dest[i] = buf[i];
+		i++;
+	}
+	dest[i] = 0;
+	return (dest);
+}
+
+// void	free_null(char **ptr)
+// {
+// 	if (*ptr != NULL)
+// 	{
+// 		free(*ptr);
+// 		ptr = NULL;
+// 	}
+// }
+
+// char	*join_line(int nl_position, char **buffer)
+// {
+// 	char	*res;
+// 	char	*temp;
+
+// 	temp = NULL;
+// 	if (nl_position <= 0)
+// 	{
+// 		if (**buffer == '\0')
+// 		{
+// 			free(*buffer);
+// 			*buffer = NULL;
+// 			return (NULL);
+// 		}
+// 		res = *buffer;
+// 		*buffer = NULL;
+// 		return (res);
+// 	}
+// 	temp = ft_substr(*buffer, nl_position, BUFFER_SIZE);
+// 	res = *buffer;
+// 	res[nl_position] = 0;
+// 	return (res);
+// }
+
 /*
 Description Write a function that returns a line read from a
 file descriptor
