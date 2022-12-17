@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 13:21:44 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:40:20 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2022/12/17 13:11:53 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,42 +25,41 @@
 char	*get_next_line(int fd)
 {
 	static char		buf[BUFFER_SIZE + 1];
-	int				buf_len;
-	int				i;
-	int				j;
-	static char		*storage[BUFFER_SIZE + 1];
+	static char		curr_line[BUFFER_SIZE + 1];
+	int				buf_len, i, j;
 	
-	buf_len = read(fd, buf, BUFFER_SIZE);
+	buf_len = read(fd, buf, BUFFER_SIZE + 1);
 	i = 0;
-	j = 0;
+	// j = 0;
 	if (!buf_len)
 		return (NULL);
-	//printf("%s, %i\n", buf, buf_len);
-	while (buf[i] != '\0' && buf[i] != '\n')
-		i++;
-	while (i < buf_len && i != '\n')
+	buf[BUFFER_SIZE + 1] = '\0';
+	// trancate till \n or end
+	while (buf[i] != '\0' && buf[i] != '\n' && BUFFER_SIZE > i)
 	{
-		storage[j] = &buf[i];
-		j++;
+		curr_line[i] = buf[i];
+		//printf("res: %c\n", curr_line[i]);
 		i++;
 	}
-	printf("%s bla\n", storage);
-	return (buf);  // add dif if end of file and + \n
+	curr_line[i] = '\0';
+	//printf("%s\n", curr_line);
+	return (curr_line);  // add dif if end of file and + \n
 }
 
 int	main(void)
 {
-	int 	fp;
+	int 	fd;
 	//int		ret;
 	
-	fp = open("tests/test.txt", O_RDONLY);
-	
-	printf("%s\n-----------------\n", get_next_line(fp));
-	printf("%s\n-----------------\n", get_next_line(fp));
-	printf("%s\n-----------------\n", get_next_line(fp));
-	
-	
-	if (close(fp) == -1) // checks
+	fd = open("tests/test.txt", O_RDONLY);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	printf("%s\n-----------------\n", get_next_line(fd));
+	printf("%s\n-----------------\n", get_next_line(fd));
+	printf("%s\n-----------------\n", get_next_line(fd));
+	printf("%s\n-----------------\n", get_next_line(fd));
+	if (close(fd) == -1) // checks
 	{
 		printf("close() err");
 		return (-1);
