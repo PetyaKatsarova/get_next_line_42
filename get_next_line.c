@@ -13,95 +13,116 @@
 // read, malloc, free, ret NULL if there is nth else to read
 //read() r nbytes of data from the obj of reference by the fildes into
 // the buffer pointed to by buf:re num of bites read adn place in the buf
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+
 #include <fcntl.h>
-#include <unistd.h>
 #include "get_next_line.h"
 
-char	*ft_read_and_save(int fd); // char *save
-char	*ft_save(char *save);
+void	free_ptr(char **ptr);
+char	*join_line(int start, char **buff);
+char	*read_line(int fd, char **buff, char *read_return);
 
-char *get_next_line(int fd, char *save)
+char	*get_next_line(int fd)
 {
-	char		*line;
-	static char	*save;
+	static char	*buff[MAX_FD + 1];
+	char		*text;
+	char		*res;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	save = ft_read_and_save(fd); //, save
-	if (!save)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
 		return (NULL);
-	// line = ft_get_line(save);
-	// save = ft_save(save);
-	return (save); // line
+	text = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (text == NULL)
+		return (NULL);
+	if (!buff[fd])
+		buff[fd] = ft_strdup("");
+	res = read_line(fd, &buff[fd], text);
+	free_ptr(&text);
+	return (res);
 }
 
-char	*ft_read_and_save(int fd, char *save)
+void	free_ptr(char **ptr)
 {
-	char	*buff;
-	int		read_bytes;
+	if (*ptr != NULL)
+	{
+		free(*ptr);
+		ptr = NULL;
+	}
+}
 
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buff)
-		return (NULL);
-	// read_bytes = 1;
-	// while (!ft_strchr(save, '\n') && read_bytes != 0)
-	// {
-		read_bytes = read(fd, buff, BUFFER_SIZE);
-		if (read_bytes == -1)
+char	*join_line(int start, char **buff)
+{
+	char	*result;
+	char	*temp;
+
+	temp = NULL;
+	if (start <= 0)
+	{
+		if (**buff == '\0')
 		{
-			free(buff);
+			free(*buff);
+			*buff = NULL;
 			return (NULL);
 		}
-		buff[read_bytes] = '\0';
-	// 	save = ft_strjoin(save, buff);
-	// }
-	// free(buff);
-	return (buff); // save
-}
-
-char	*ft_save(char *save)
-{
-	int		i;
-	int		c;
-	char	*str;
-
-	i = 0;
-	while (save[i] && save[i] != '\n')
-		i++;
-	if (!save[i])
-	{
-		free(save);
-		return (NULL);
+		result = *buff;
+		*buff = NULL;
+		return (result);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_str_len(save) - i + 1));
-	if (!str)
-		return (NULL);
-	i++;
-	c = 0;
-	while (save[i])
-		str[c++] = save[i++];
-	str[c] = '\n';
-	free(save);
-	return (str);
+	// wtf happens here:
+	/*
+	1: buff e pointer to str; temp e substr of buff
+	*/
+	temp = ft_substr(*buff, start, BUFFER_SIZE);
+	result = *buff;
+	result[start] = 0;
+	*buff = temp;
+	return (result);
 }
 
+char	*read_line(int fd, char **buff, char *text)
+{
+	ssize_t	bytes_read;
+	char	*temp;
+	char	*nl;
+
+	nl = ft_strchr(*buff, '\n');
+	temp = NULL;
+	bytes_read = 0;
+	while (nl == NULL)
+	{
+		bytes_read = read(fd, text, BUFFER_SIZE);
+		if (bytes_read <= 0)
+			return (join_line(bytes_read, buff));
+		text[bytes_read] = 0;
+		temp = ft_strjoin(*buff, text);
+		free_ptr(buff);
+		*buff = temp;
+		nl = ft_strchr(*buff, '\n');
+	}
+	return (join_line(nl - *buff + 1, buff));
+}
+
+/*
+	Make sure that your function works as expected both when reading a file and when
+reading from the standard input.
+*/
 int	main(void)
 {
-	int 	fd;
+	int 	fd, count = 0;
 	
 	fd = open("tests/test.txt", O_RDONLY);
-	printf("%s\n-----------------\n", get_next_line(fd));
-	printf("%s\n-----------------\n", get_next_line(fd));
-	printf("%s\n-----------------\n", get_next_line(fd));
-	printf("%s\n-----------------\n", get_next_line(fd));
+
+	for (int i = 0; i < 5; i++)
+	{
+		char	*line;
+		
+		line = get_next_line(fd);
+		printf("[%i] %s", ++count, line);
+		free (line);
+	}
 	if (close(fd) == -1) // checks
 	{
 		printf("close() err");
 		return (-1);
 	}
+	// !! there is no \n at the end of the text!!!
 	return (0);
 }

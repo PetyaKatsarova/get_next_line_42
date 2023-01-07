@@ -1,34 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/12/06 12:44:05 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2022/12/20 14:59:18 by pkatsaro      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stddef.h> // for size_t and others...
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 200
+#  define BUFFER_SIZE 2
 # endif
 
-/* get_next_line_utils.c */
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(const char *s1, const char *s2);
-/* get_next_line.c */
-char	*get_next_line(int fd);
-char	*ft_read_and_save(int fd, char *save);
-char	*ft_save(char *save);
-//char	*ft_get_line(char *save);
+# ifndef MAX_FD
+#  define MAX_FD 256
+# endif
 
+char	*get_next_line(int fd);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strchr(const char *str, int n);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 #endif
