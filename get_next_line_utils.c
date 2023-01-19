@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 15:33:50 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/19 10:46:57 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/19 16:35:22 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (chr);
 }
-
 
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
@@ -49,7 +48,7 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	if(!s)
+	if (!s)
 		return (0);
 	while (s[i] != '\0')
 		i++;
@@ -82,8 +81,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 	i = 0;
 	src_len = ft_strlen(src);
-	if (src_len < 0)
-		return (0);
 	if (dstsize == 0)
 		return (src_len);
 	if (!dst || !src)
@@ -97,26 +94,13 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (src_len);
 }
 
-char	*ft_strdup(const char *str)
-{
-	char	*ptr;
+// char	*ft_strdup(const char *str)
+// {
+// 	char	*ptr;
 
-	if (str == NULL) //didnt change the segfault
-		return (NULL);
-	ptr = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
-	if (!ptr)
-		return (NULL);
-	ft_strlcpy(ptr, str, ft_strlen(str) + 1);
-	return (ptr);
-}
-
-char	*ft_strndup(const char *str, size_t n)
-{
-	char	*ptr;
-
-	ptr = (char *)malloc((n + 1) * sizeof(char));
-	if (ptr == NULL)
-		return (NULL);
-	ft_strlcpy(ptr, str, n + 1);
-	return (ptr);
-}
+// 	ptr = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
+// 	if (!ptr)
+// 		return (NULL);
+// 	ft_strlcpy(ptr, str, ft_strlen(str) + 1);
+// 	return (ptr);
+// }

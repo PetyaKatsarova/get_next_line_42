@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line.h                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/01/19 14:12:30 by pkatsaro      #+#    #+#                 */
+/*   Updated: 2023/01/19 16:20:53 by pkatsaro      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
