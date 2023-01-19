@@ -1,5 +1,8 @@
 
 • Your header file get_next_line.h must at least contain the prototype^
  of the get_next_line() function.^
+
 • Add all the helper functions you need in the get_next_line_utils.c^
  file."^
+ 1234455235234523452345234534523452345
+ 5

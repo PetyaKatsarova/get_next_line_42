@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 15:33:50 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/15 18:15:31 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/19 10:46:57 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 	i = 0;
 	src_len = ft_strlen(src);
+	if (src_len < 0)
+		return (0);
 	if (dstsize == 0)
 		return (src_len);
 	if (!dst || !src)
@@ -99,8 +101,8 @@ char	*ft_strdup(const char *str)
 {
 	char	*ptr;
 
-	// if (str == NULL) didnt change the segfault
-	// 	return (NULL);
+	if (str == NULL) //didnt change the segfault
+		return (NULL);
 	ptr = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (!ptr)
 		return (NULL);
