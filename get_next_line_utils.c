@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 15:33:50 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/19 16:35:22 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/20 10:53:47 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	len = ft_strlen(s1) + ft_strlen(s2);
 	ret = malloc(sizeof(char) * (len + 1));
 	if (!ret)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (*s1)
 		ret[i++] = *s1++;

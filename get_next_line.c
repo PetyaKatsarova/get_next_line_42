@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 13:21:44 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/19 16:38:11 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/20 16:54:39 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*join_line(int start, char **buffer_holder)
 	char	*temp;
 
 	temp = NULL;
+	result = NULL;
 	if (start <= 0)
 	{
 		if (**buffer_holder == '\0')
@@ -94,7 +95,8 @@ char	*read_line(int fd, char **buffer_holder, char *current_buff)
 		temp = ft_strjoin(*buffer_holder, current_buff);
 		free_ptr(buffer_holder);
 		*buffer_holder = temp;
-		nl = ft_strchr(*buffer_holder, '\n');
+		 if (*buffer_holder)
+			nl = ft_strchr(*buffer_holder, '\n');
 	}
 	return (join_line(nl - *buffer_holder + 1, buffer_holder));
 }
@@ -128,23 +130,19 @@ To see the tests open: /Users/pkatsaro/francinette/tests/get_next_line/fsoares/t
 // cc -Wall -Wextra -Werror -D BUFFER_SIZE=1 get_next_line.c get_next_line_utils.c && ./a.out
 // int	main(void)
 // {
-// 	int 	fd, count = 0;
-	
-// 	fd = open("tests/test.txt", O_RDONLY);
-
-// 	for (int i = 0; i < 8; i++)
-// 	{
-// 		char	*line;
-		
-// 		line = get_next_line(fd);
-// 		printf("[%i] %s", ++count, line);
-// 		free (line);
-// 	}
-// 	if (close(fd) == -1) // checks
-// 	{
-// 		printf("close() err");
-// 		return (-1);
-// 	}
-// 	// !! there is no \n at the end of the text!!!
+// 	char *line;
+//     int fd = open("tests/test.txt", O_RDONLY);
+//     if (fd < 0) {
+//         printf("Error opening file\n");
+//         return (-1);
+//     }
+//     while ((line = get_next_line(fd)) != NULL) {
+//         printf("Line: %s", line);
+//         free(line);
+//     }
+//     if (close(fd) != 0) {
+//         printf("Error closing file\n");
+//         return (-1);
+//     }
 // 	return (0);
 // }
