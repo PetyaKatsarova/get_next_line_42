@@ -2,5 +2,4 @@
  of the get_next_line() function.^
 • Add all the helper functions you need in the get_next_line_utils.c^
  file."^
- 123456789123456789
- 5
+ 12345678912345678no new line

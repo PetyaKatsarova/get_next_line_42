@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 15:33:50 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/20 17:09:07 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/21 14:54:44 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	dst[i] = '\0';
 	return (src_len);
 }
-
-// char	*ft_strdup(const char *str)
-// {
-// 	char	*ptr;
-
-// 	ptr = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
-// 	if (!ptr)
-// 		return (NULL);
-// 	ft_strlcpy(ptr, str, ft_strlen(str) + 1);
-// 	return (ptr);
-// }
