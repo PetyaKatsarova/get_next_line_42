@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 15:33:50 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/20 10:53:47 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/20 17:09:07 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	char	*chr;
 
+	if (!s)
+		return (NULL);
 	chr = (char *)s;
 	while (*chr != (char)c)
 	{
@@ -34,7 +36,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 
 	ret = malloc(sizeof(char) * (len + 1));
 	if (!ret)
-		return (0);
+		return (NULL);
 	tmp = (char *)s + start;
 	i = 0;
 	while (*tmp && i < len)
@@ -61,6 +63,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	char	*ret;
 	size_t	len;
 
+	if (!s1 || !s2)
+		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	ret = malloc(sizeof(char) * (len + 1));
 	if (!ret)
@@ -79,6 +83,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	size_t	i;
 	size_t	src_len;
 
+	if (!dst || !src)
+		return (0);
 	i = 0;
 	src_len = ft_strlen(src);
 	if (dstsize == 0)

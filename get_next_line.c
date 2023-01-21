@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 13:21:44 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/20 16:54:39 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/21 11:55:54 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strndup(const char *str, size_t n);
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer_holder[MAX_FD + 1];
+	static char	*buffer_holder[OPEN_MAX + 1]; // MAX_FD
 	char		*current_buffer;
 	char		*res;
 
@@ -37,10 +37,15 @@ char	*get_next_line(int fd)
 
 void	free_ptr(char **ptr)
 {
-	if (*ptr != NULL && ptr != NULL)
+	// if (*ptr != NULL && ptr != NULL)
+	// {
+	// 	free(*ptr);
+	// 	*ptr = NULL;
+	// }
+	if (*ptr != NULL)
 	{
 		free(*ptr);
-		*ptr = NULL;
+		ptr = NULL;
 	}
 }
 
