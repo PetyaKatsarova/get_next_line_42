@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   get_next_line_bonus.h                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/01/19 14:12:30 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/21 18:20:06 by pkatsaro      ########   odam.nl         */
+/*   Created: 2023/01/21 13:55:56 by pkatsaro      #+#    #+#                 */
+/*   Updated: 2023/01/21 18:25:01 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-//The mos commonly used functions in <fcntl.h> include open(),
-// close(), and fcntl().
-
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
