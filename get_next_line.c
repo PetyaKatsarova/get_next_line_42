@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 13:21:44 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/24 11:54:26 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/24 14:58:19 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ char	*read_line(int fd, char **buffer_holder, char *current_buff)
 {
 	ssize_t	bytes_read;
 	char	*temp;
-	char	*nl;
+	char	*new_line;
 
-	nl = ft_strchr(*buffer_holder, '\n');
-	while (nl == NULL)
+	new_line = ft_strchr(*buffer_holder, '\n');
+	while (new_line == NULL)
 	{
 		bytes_read = read(fd, current_buff, BUFFER_SIZE);
 		if (bytes_read == -1)
@@ -94,7 +94,7 @@ char	*read_line(int fd, char **buffer_holder, char *current_buff)
 			free_ptr(buffer_holder);
 			return (NULL);
 		}
-		else if (bytes_read <= 0 && buffer_holder)
+		else if (bytes_read == 0 && buffer_holder)
 			return (join_line(bytes_read, buffer_holder));
 		current_buff[bytes_read] = 0;
 		temp = ft_strjoin(*buffer_holder, current_buff);
@@ -103,9 +103,9 @@ char	*read_line(int fd, char **buffer_holder, char *current_buff)
 			return (NULL);
 		*buffer_holder = temp;
 		if (*buffer_holder)
-			nl = ft_strchr(*buffer_holder, '\n');
+			new_line = ft_strchr(*buffer_holder, '\n');
 	}
-	return (join_line(nl - *buffer_holder + 1, buffer_holder));
+	return (join_line(new_line - *buffer_holder + 1, buffer_holder));
 }
 
 char	*ft_strndup(const char *str, size_t n)
