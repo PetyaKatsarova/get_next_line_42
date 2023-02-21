@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 13:21:44 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/24 14:58:19 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/24 17:56:02 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ char	*get_next_line(int fd)
 	return (res);
 }
 
+/*
+Setting the pointer to NULL after it has been freed serves as a way to prevent
+ the program from accidentally using the freed memory. It also helps to indicate
+  that the memory at that location is no longer valid and should not be accessed.
+   Additionally, it can also help with detecting memory leaks, as a pointer
+    that is not NULL when it should be may indicate that the memory it points 
+	to has not been properly freed.
+*/
+
 void	free_ptr(char **ptr)
 {
 	if (*ptr != NULL && ptr != NULL)
@@ -69,12 +78,12 @@ char	*join_line(int start, char **buffer_holder)
 	}
 	temp = ft_substr(*buffer_holder, start, BUFFER_SIZE);
 	result = ft_strndup(*buffer_holder, start);
-	free(*buffer_holder);
 	if (!result)
 	{
 		free(temp);
 		temp = NULL;
 	}
+	free(*buffer_holder);
 	*buffer_holder = temp;
 	return (result);
 }

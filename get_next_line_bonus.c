@@ -6,7 +6,7 @@
 /*   By: pkatsaro <pkatsaro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 13:21:44 by pkatsaro      #+#    #+#                 */
-/*   Updated: 2023/01/24 14:55:13 by pkatsaro      ########   odam.nl         */
+/*   Updated: 2023/01/24 15:43:10 by pkatsaro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,21 +124,13 @@ char	*ft_strndup(const char *str, size_t n)
 // gcc -Wall -Wextra -Werror -D BUFFER_SIZE=1 get_next_line_bonus.c get_next_line_utils_bonus.c && ./a.out
 int	main(void)
 {
-	char *line, *line2, *line3;
+	char *line;
     int fd = open("test.txt", O_RDONLY);
-	int fd2 = open("test2.txt", O_RDONLY);
-	int fd3 = open("test3.txt", O_RDONLY);
 
    for (int i=0; i<3; i++) {
 		line = get_next_line(fd);
-		line2 = get_next_line(fd2);
-		line3 = get_next_line(fd3);
         printf("FD[%i]: %s\n", fd, line);
         free(line);
-		printf("FD[%i]: %s\n", fd2, line2);
-        free(line2);
-		printf("FD[%i]: %s\n", fd3, line3);
-        free(line3);
    }
     if (close(fd) != 0) {
         printf("Error closing file\n");
